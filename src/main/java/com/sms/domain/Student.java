@@ -30,7 +30,7 @@ public Student (String studentID, String fullName, String programme, int level, 
     this.status = status;
 }
 // Getter methods to let us read data
-    public String getStudentID(){
+    public String getStudentId(){
         return studentID;
     }
 
