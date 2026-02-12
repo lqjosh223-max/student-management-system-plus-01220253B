@@ -1,0 +1,24 @@
+# Maven
+target/
+*.jar
+*.war
+
+# Java compiled files
+*.class
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Database files (DO NOT commit actual DB)
+data/*.db
+data/*.log
+!data/schema.sql
+
+# OS generated files
+.DS_Store
+Thumbs.db

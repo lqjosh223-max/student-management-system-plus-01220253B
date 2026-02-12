@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.sms.ui.MainController"
+            prefWidth="1200" prefHeight="800">
+
+    <top>
+        <HBox styleClass="header" spacing="20">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Student Management System Plus" styleClass="logo"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Settings" styleClass="btn-icon"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <HBox spacing="20">
+                <VBox spacing="10" styleClass="card">
+                    <Label text="Total Students" styleClass="stat-label"/>
+                    <Label text="0" styleClass="stat-value" fx:id="totalStudentsLabel"/>
+                </VBox>
+
+                <VBox spacing="10" styleClass="card">
+                    <Label text="Active Students" styleClass="stat-label"/>
+                    <Label text="0" styleClass="stat-value" fx:id="activeStudentsLabel"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="15">
+                <TextField promptText="Search student by ID or Name" fx:id="searchField" styleClass="search-field"/>
+                <ComboBox promptText="Programme" fx:id="programmeFilter" styleClass="filter-combo"/>
+                <ComboBox promptText="Level" fx:id="levelFilter" styleClass="filter-combo"/>
+                <ComboBox promptText="Status" fx:id="statusFilter" styleClass="filter-combo"/>
+                <Button text="+ Add Student" fx:id="addStudentButton" styleClass="btn-primary"/>
+            </HBox>
+
+            <TableView fx:id="studentTable" styleClass="student-table" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn text="Full Name" prefWidth="180" fx:id="fullNameCol">
+                        <cellValueFactory><PropertyValueFactory property="fullName"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Reg Num" prefWidth="120" fx:id="regNumCol">
+                        <cellValueFactory><PropertyValueFactory property="studentId"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Programme" prefWidth="150" fx:id="programmeCol">
+                        <cellValueFactory><PropertyValueFactory property="programme"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Level" prefWidth="80" fx:id="levelCol">
+                        <cellValueFactory><PropertyValueFactory property="level"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="GPA" prefWidth="80" fx:id="gpaCol">
+                        <cellValueFactory><PropertyValueFactory property="gpa"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Email" prefWidth="200" fx:id="emailCol">
+                        <cellValueFactory><PropertyValueFactory property="email"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Phone" prefWidth="120" fx:id="phoneCol">
+                        <cellValueFactory><PropertyValueFactory property="phoneNumber"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Status" prefWidth="100" fx:id="statusCol">
+                        <cellValueFactory><PropertyValueFactory property="status"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Actions" prefWidth="100" fx:id="actionsCol">
+                        <cellValueFactory><PropertyValueFactory property="actions"/></cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>
