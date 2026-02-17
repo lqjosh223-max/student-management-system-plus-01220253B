@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.sms.ui.ReportsController"
+            prefWidth="1200" prefHeight="800">
+
+    <top>
+        <HBox styleClass="header" spacing="20">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Reports" styleClass="logo"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Back to Students" fx:id="backButton" styleClass="btn-secondary"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+            <Button text="Dashboard" fx:id="dashboardNavButton" styleClass="nav-btn"/>
+            <Button text="Students" fx:id="studentsNavButton" styleClass="nav-btn"/>
+            <Button text="Reports" fx:id="reportsNavButton" styleClass="nav-btn active"/>
+            <Button text="Import" fx:id="importNavButton" styleClass="nav-btn"/>
+            <Button text="Export" fx:id="exportNavButton" styleClass="nav-btn"/>
+            <Button text="Settings" fx:id="settingsNavButton" styleClass="nav-btn"/>
+        </VBox>
+    </left>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Top Performers">
+                <VBox spacing="15">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <HBox spacing="15">
+                        <Label text="Programme:"/>
+                        <ComboBox fx:id="topPerformerProgrammeFilter" prefWidth="200"/>
+                        <Label text="Level:"/>
+                        <ComboBox fx:id="topPerformerLevelFilter" prefWidth="120"/>
+                        <Button text="Refresh" fx:id="refreshTopPerformersButton" styleClass="btn-secondary"/>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Button text="Export CSV" fx:id="exportTopPerformersButton" styleClass="btn-primary"/>
+                    </HBox>
+
+                    <TableView fx:id="topPerformersTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Rank" prefWidth="60">
+                                <cellValueFactory><PropertyValueFactory property="rank"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Full Name" prefWidth="200">
+                                <cellValueFactory><PropertyValueFactory property="fullName"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Student ID" prefWidth="120">
+                                <cellValueFactory><PropertyValueFactory property="studentId"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Programme" prefWidth="150">
+                                <cellValueFactory><PropertyValueFactory property="programme"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Level" prefWidth="80">
+                                <cellValueFactory><PropertyValueFactory property="level"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="GPA" prefWidth="80">
+                                <cellValueFactory><PropertyValueFactory property="gpa"/></cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <Tab text="At Risk Students">
+                <VBox spacing="15">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="GPA Threshold:"/>
+                        <TextField fx:id="atRiskThresholdField" text="2.0" prefWidth="80"/>
+                        <Button text="Apply" fx:id="applyThresholdButton" styleClass="btn-secondary"/>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Button text="Export CSV" fx:id="exportAtRiskButton" styleClass="btn-primary"/>
+                    </HBox>
+
+                    <TableView fx:id="atRiskTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Full Name" prefWidth="200">
+                                <cellValueFactory><PropertyValueFactory property="fullName"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Student ID" prefWidth="120">
+                                <cellValueFactory><PropertyValueFactory property="studentId"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Programme" prefWidth="150">
+                                <cellValueFactory><PropertyValueFactory property="programme"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Level" prefWidth="80">
+                                <cellValueFactory><PropertyValueFactory property="level"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="GPA" prefWidth="80">
+                                <cellValueFactory><PropertyValueFactory property="gpa"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Status" prefWidth="100">
+                                <cellValueFactory><PropertyValueFactory property="status"/></cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+
+            <Tab text="GPA Distribution">
+                <VBox spacing="20">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <Label text="Active Students GPA Distribution" styleClass="dialog-title"/>
+                    <BarChart fx:id="gpaChart" title="GPA Distribution" VBox.vgrow="ALWAYS">
+                        <xAxis><CategoryAxis label="GPA Range"/></xAxis>
+                        <yAxis><NumberAxis label="Number of Students"/></yAxis>
+                    </BarChart>
+                    <HBox spacing="20" alignment="CENTER">
+                        <Button text="Refresh Chart" fx:id="refreshChartButton" styleClass="btn-secondary"/>
+                        <Button text="Export Data" fx:id="exportChartDataButton" styleClass="btn-primary"/>
+                    </HBox>
+                </VBox>
+            </Tab>
+
+            <Tab text="Programme Summary">
+                <VBox spacing="15">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <Label text="Students and Average GPA by Programme" styleClass="dialog-title"/>
+                    <TableView fx:id="programmeSummaryTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Programme" prefWidth="250">
+                                <cellValueFactory><PropertyValueFactory property="programme"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Total Students" prefWidth="150">
+                                <cellValueFactory><PropertyValueFactory property="studentCount"/></cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Average GPA" prefWidth="150">
+                                <cellValueFactory><PropertyValueFactory property="averageGpa"/></cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Button text="Refresh" fx:id="refreshSummaryButton" styleClass="btn-secondary"/>
+                        <Button text="Export CSV" fx:id="exportSummaryButton" styleClass="btn-primary"/>
+                    </HBox>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+
+</BorderPane>

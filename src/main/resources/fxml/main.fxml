@@ -19,7 +19,6 @@
             </padding>
             <Label text="Student Management System Plus" styleClass="logo"/>
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="Settings" fx:id="settingsButton" styleClass="btn-icon"/>
         </HBox>
     </top>
 

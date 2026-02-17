@@ -221,3 +221,27 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+/* Reports screen specific styles */
+.tab-pane .tab-header-area {
+    -fx-background-color: #2a5d44;
+}
+
+.tab-pane .tab {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: white;
+    -fx-text-fill: #2a5d44;
+    -fx-font-weight: bold;
+}
+
+.chart-bar {
+    -fx-bar-fill: #2a5d44;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
