@@ -11,6 +11,7 @@
             fx:controller="com.sms.ui.MainController"
             prefWidth="1200" prefHeight="800">
 
+    <!-- TOP HEADER -->
     <top>
         <HBox styleClass="header" spacing="20">
             <padding>
@@ -18,16 +19,33 @@
             </padding>
             <Label text="Student Management System Plus" styleClass="logo"/>
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="Settings" styleClass="btn-icon"/>
+            <Button text="Settings" fx:id="settingsButton" styleClass="btn-icon"/>
         </HBox>
     </top>
 
+    <!-- LEFT NAVIGATION SIDEBAR -->
+    <left>
+        <VBox spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+            <Button text="Dashboard" fx:id="dashboardButton" styleClass="nav-btn"/>
+            <Button text="Students" fx:id="studentsButton" styleClass="nav-btn active"/>
+            <Button text="Reports" fx:id="reportsButton" styleClass="nav-btn"/>
+            <Button text="Import" fx:id="importButton" styleClass="nav-btn"/>
+            <Button text="Export" fx:id="exportButton" styleClass="nav-btn"/>
+            <Button text="Settings" fx:id="settingsNavButton" styleClass="nav-btn"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER CONTENT -->
     <center>
         <VBox spacing="20">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
+            <!-- DASHBOARD STATS CARDS -->
             <HBox spacing="20">
                 <VBox spacing="10" styleClass="card">
                     <Label text="Total Students" styleClass="stat-label"/>
@@ -38,16 +56,32 @@
                     <Label text="Active Students" styleClass="stat-label"/>
                     <Label text="0" styleClass="stat-value" fx:id="activeStudentsLabel"/>
                 </VBox>
+
+                <VBox spacing="10" styleClass="card">
+                    <Label text="Inactive Students" styleClass="stat-label"/>
+                    <Label text="0" styleClass="stat-value" fx:id="inactiveStudentsLabel"/>
+                </VBox>
+
+                <VBox spacing="10" styleClass="card">
+                    <Label text="Average GPA" styleClass="stat-label"/>
+                    <Label text="0.00" styleClass="stat-value" fx:id="averageGpaLabel"/>
+                </VBox>
             </HBox>
 
-            <HBox spacing="15">
+            <!-- SEARCH, FILTERS, AND CRUD BUTTONS -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
                 <TextField promptText="Search student by ID or Name" fx:id="searchField" styleClass="search-field"/>
                 <ComboBox promptText="Programme" fx:id="programmeFilter" styleClass="filter-combo"/>
                 <ComboBox promptText="Level" fx:id="levelFilter" styleClass="filter-combo"/>
                 <ComboBox promptText="Status" fx:id="statusFilter" styleClass="filter-combo"/>
-                <Button text="+ Add Student" fx:id="addStudentButton" styleClass="btn-primary"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button text="Add" fx:id="addStudentButton" styleClass="btn-primary"/>
+                <Button text="Edit" fx:id="editStudentButton" styleClass="btn-secondary"/>
+                <Button text="Delete" fx:id="deleteStudentButton" styleClass="btn-danger"/>
+                <Button text="Refresh" fx:id="refreshButton" styleClass="btn-secondary"/>
             </HBox>
 
+            <!-- STUDENT TABLE -->
             <TableView fx:id="studentTable" styleClass="student-table" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn text="Full Name" prefWidth="180" fx:id="fullNameCol">
@@ -74,7 +108,7 @@
                     <TableColumn text="Status" prefWidth="100" fx:id="statusCol">
                         <cellValueFactory><PropertyValueFactory property="status"/></cellValueFactory>
                     </TableColumn>
-                    <TableColumn text="Actions" prefWidth="100" fx:id="actionsCol">
+                    <TableColumn text="Actions" prefWidth="150" fx:id="actionsCol">
                         <cellValueFactory><PropertyValueFactory property="actions"/></cellValueFactory>
                     </TableColumn>
                 </columns>

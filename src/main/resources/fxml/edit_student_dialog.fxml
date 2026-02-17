@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.sms.ui.EditStudentController"
+          prefWidth="500" prefHeight="450"
+          hgap="15" vgap="15">
+          
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Edit Student" GridPane.columnSpan="2" styleClass="dialog-title"/>
+    
+    <Label text="Student ID:" GridPane.rowIndex="1"/>
+    <TextField fx:id="studentIdField" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    
+    <Label text="Full Name:" GridPane.rowIndex="2"/>
+    <TextField fx:id="fullNameField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    
+    <Label text="Programme:" GridPane.rowIndex="3"/>
+    <ComboBox fx:id="programmeField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    
+    <Label text="Level:" GridPane.rowIndex="4"/>
+    <ComboBox fx:id="levelField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    
+    <Label text="GPA:" GridPane.rowIndex="5"/>
+    <TextField fx:id="gpaField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    
+    <Label text="Email:" GridPane.rowIndex="6"/>
+    <TextField fx:id="emailField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+    
+    <Label text="Phone:" GridPane.rowIndex="7"/>
+    <TextField fx:id="phoneField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    
+    <Label text="Status:" GridPane.rowIndex="8"/>
+    <ComboBox fx:id="statusField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+    
+    <HBox spacing="10" GridPane.rowIndex="9" GridPane.columnIndex="1" alignment="CENTER_RIGHT">
+        <Button text="Cancel" fx:id="cancelButton" styleClass="btn-secondary"/>
+        <Button text="Save Changes" fx:id="saveButton" styleClass="btn-primary"/>
+    </HBox>
+
+</GridPane>

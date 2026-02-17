@@ -13,6 +13,10 @@ public class MainApp extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
         Scene scene = new Scene(loader.load());
 
+        // Get controller and set main stage
+        MainController controller = loader.getController();
+        controller.setMainStage(stage);
+
         // Load CSS
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
