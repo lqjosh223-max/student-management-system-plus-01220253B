@@ -6,7 +6,14 @@ import com.sms.service.StudentService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainController {
 
@@ -27,10 +34,11 @@ public class MainController {
     @FXML private TableColumn<Student, String> emailCol;
     @FXML private TableColumn<Student, String> phoneCol;
     @FXML private TableColumn<Student, String> statusCol;
-    @FXML private TableColumn<Student, String> actionsCol; // Added missing field
+    @FXML private TableColumn<Student, String> actionsCol;
 
     private StudentService studentService;
     private ObservableList<Student> studentData;
+    private Stage mainStage;
 
     public void initialize() {
         try {
@@ -41,6 +49,7 @@ public class MainController {
             // Initialize combo boxes
             levelFilter.getItems().addAll(100, 200, 300, 400, 500, 600, 700);
             statusFilter.getItems().addAll("Active", "Inactive");
+            programmeFilter.getItems().addAll("Computer Science", "Business", "Engineering", "Mathematics", "Physics");
 
             // Initialize table columns
             setupTableColumns();
@@ -51,6 +60,12 @@ public class MainController {
             // Setup search and filter listeners
             setupSearchAndFilter();
 
+            // Setup button actions
+            addStudentButton.setOnAction(e -> handleAddStudent());
+
+            // Get main stage reference
+            mainStage = (Stage) studentTable.getScene().getWindow();
+
             System.out.println("UI loaded successfully with database connection!");
 
         } catch (Exception e) {
@@ -60,17 +75,32 @@ public class MainController {
     }
 
     private void setupTableColumns() {
-        fullNameCol.setCellValueFactory(cellData -> cellData.getValue().fullNameProperty());
-        regNumCol.setCellValueFactory(cellData -> cellData.getValue().studentIdProperty());
-        programmeCol.setCellValueFactory(cellData -> cellData.getValue().programmeProperty());
-        levelCol.setCellValueFactory(cellData ->
-                new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getLevel()).asObject());
-        gpaCol.setCellValueFactory(cellData ->
-                new javafx.beans.property.SimpleDoubleProperty(cellData.getValue().getGpa()).asObject());
-        emailCol.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
-        phoneCol.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
-        statusCol.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
-        actionsCol.setCellValueFactory(cellData -> cellData.getValue().actionsProperty()); // Added this line
+        fullNameCol.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        regNumCol.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        programmeCol.setCellValueFactory(new PropertyValueFactory<>("programme"));
+        levelCol.setCellValueFactory(new PropertyValueFactory<>("level"));
+        gpaCol.setCellValueFactory(new PropertyValueFactory<>("gpa"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        // Actions column with clickable "View" button
+        actionsCol.setCellFactory(col -> new TableCell<>() {
+            private final Button btn = new Button("View");
+            {
+                btn.setStyle("-fx-background-color: #2a5d44; -fx-text-fill: white; -fx-cursor: hand;");
+                btn.setOnAction(e -> handleViewStudent(getTableView().getItems().get(getIndex())));
+            }
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btn);
+                }
+            }
+        });
     }
 
     private void loadStudentData() {
@@ -92,32 +122,53 @@ public class MainController {
     }
 
     private void setupSearchAndFilter() {
-        // Add listeners for search and filters
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterStudents();
-        });
-
-        programmeFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
-            filterStudents();
-        });
-
-        levelFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
-            filterStudents();
-        });
-
-        statusFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
-            filterStudents();
-        });
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterStudents());
+        programmeFilter.valueProperty().addListener((observable, oldValue, newValue) -> filterStudents());
+        levelFilter.valueProperty().addListener((observable, oldValue, newValue) -> filterStudents());
+        statusFilter.valueProperty().addListener((observable, oldValue, newValue) -> filterStudents());
     }
 
     private void filterStudents() {
-        // This is a basic implementation - you can enhance it later
-        String searchTerm = searchField.getText().toLowerCase();
-        String programme = programmeFilter.getValue();
-        Integer level = levelFilter.getValue();
-        String status = statusFilter.getValue();
+        loadStudentData(); // Basic implementation - reloads all data
+    }
 
-        // For now, just reload data (you can optimize this later)
-        loadStudentData();
+    @FXML
+    private void handleAddStudent() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/add_student_dialog.fxml"));
+            Parent root = loader.load();
+
+            AddStudentController dialogController = loader.getController();
+            dialogController.setStudentService(studentService);
+
+            Stage dialogStage = new Stage();
+            dialogController.setDialogStage(dialogStage);
+            dialogStage.setTitle("Add New Student");
+            dialogStage.setScene(new Scene(root));
+            dialogStage.initOwner(mainStage);
+
+            dialogStage.showAndWait();
+            loadStudentData();
+
+        } catch (IOException e) {
+            System.err.println("Error loading add student dialog: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void handleViewStudent(Student student) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Student Details");
+        alert.setHeaderText("Details for: " + student.getFullName());
+        alert.setContentText(
+                "ID: " + student.getStudentId() + "\n" +
+                        "Programme: " + student.getProgramme() + "\n" +
+                        "Level: " + student.getLevel() + "\n" +
+                        "GPA: " + student.getGpa() + "\n" +
+                        "Email: " + student.getEmail() + "\n" +
+                        "Phone: " + student.getPhoneNumber() + "\n" +
+                        "Status: " + student.getStatus()
+        );
+        alert.showAndWait();
     }
 }
