@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.sms.ui.SettingsController"
+            prefWidth="1200" prefHeight="800">
+
+    <!-- TOP HEADER -->
+    <top>
+        <HBox styleClass="header" spacing="20">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Settings" styleClass="logo"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Back to Dashboard" fx:id="backButton" styleClass="btn-secondary"/>
+        </HBox>
+    </top>
+
+    <!-- LEFT NAVIGATION -->
+    <left>
+        <VBox spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+            <Button text="Dashboard" fx:id="dashboardNavButton" styleClass="nav-btn"/>
+            <Button text="Students" fx:id="studentsNavButton" styleClass="nav-btn"/>
+            <Button text="Reports" fx:id="reportsNavButton" styleClass="nav-btn"/>
+            <Button text="Import/Export" fx:id="importExportNavButton" styleClass="nav-btn"/>
+            <Button text="Settings" fx:id="settingsNavButton" styleClass="nav-btn active"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox spacing="30">
+                <padding>
+                    <Insets top="40" right="40" bottom="40" left="40"/>
+                </padding>
+
+                <!-- At-Risk Threshold Section -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="At-Risk Student Threshold" styleClass="dialog-title"/>
+                    <Label text="Students with GPA below this value will appear in the At-Risk report" styleClass="stat-label"/>
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="GPA Threshold:" styleClass="stat-label"/>
+                        <TextField fx:id="atRiskThresholdField" text="2.0" prefWidth="100"/>
+                        <Button text="Save" fx:id="saveThresholdButton" styleClass="btn-primary"/>
+                    </HBox>
+
+                    <Label fx:id="thresholdStatus" text="Current threshold: 2.0" styleClass="stat-label"/>
+                </VBox>
+
+                <!-- Programme Management Section -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Manage Programmes" styleClass="dialog-title"/>
+                    <Label text="Add or remove available programmes" styleClass="stat-label"/>
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <TextField fx:id="newProgrammeField" promptText="Enter programme name" prefWidth="250"/>
+                        <Button text="Add Programme" fx:id="addProgrammeButton" styleClass="btn-primary"/>
+                    </HBox>
+
+                    <Label text="Current Programmes:" styleClass="stat-label"/>
+                    <ListView fx:id="programmeListView" prefHeight="150"/>
+
+                    <HBox spacing="10">
+                        <Button text="Remove Selected" fx:id="removeProgrammeButton" styleClass="btn-danger"/>
+                        <Button text="Restore Defaults" fx:id="restoreProgrammesButton" styleClass="btn-secondary"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Level Management Section -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Manage Levels" styleClass="dialog-title"/>
+                    <Label text="Add or remove available student levels" styleClass="stat-label"/>
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <TextField fx:id="newLevelField" promptText="Enter level (e.g., 100)" prefWidth="150"/>
+                        <Button text="Add Level" fx:id="addLevelButton" styleClass="btn-primary"/>
+                    </HBox>
+
+                    <Label text="Current Levels:" styleClass="stat-label"/>
+                    <ListView fx:id="levelListView" prefHeight="150"/>
+
+                    <HBox spacing="10">
+                        <Button text="Remove Selected" fx:id="removeLevelButton" styleClass="btn-danger"/>
+                        <Button text="Restore Defaults" fx:id="restoreLevelsButton" styleClass="btn-secondary"/>
+                    </HBox>
+                </VBox>
+
+                <!-- Database Section -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Database Management" styleClass="dialog-title"/>
+
+                    <HBox spacing="15">
+                        <Button text="Backup Database" fx:id="backupDatabaseButton" styleClass="btn-secondary"/>
+                        <Button text="View Log File" fx:id="viewLogButton" styleClass="btn-secondary"/>
+                    </HBox>
+
+                    <Label text="Database location: data/students.db" styleClass="stat-label"/>
+                </VBox>
+
+                <!-- Application Info -->
+                <VBox spacing="15" styleClass="card">
+                    <Label text="Application Information" styleClass="dialog-title"/>
+
+                    <GridPane hgap="15" vgap="10">
+                        <Label text="Version:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="stat-label"/>
+                        <Label text="1.0.0" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Java Version:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="stat-label"/>
+                        <Label fx:id="javaVersionLabel" text="Loading..." GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Total Students:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="stat-label"/>
+                        <Label fx:id="totalStudentsSettingLabel" text="0" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    </GridPane>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 
 public class MainController {
 
+
+
     @FXML private Label totalStudentsLabel;
     @FXML private Label activeStudentsLabel;
     @FXML private Label inactiveStudentsLabel;
@@ -36,6 +38,7 @@ public class MainController {
     @FXML private Button reportsButton;
     @FXML private Button importButton;
     @FXML private Button exportButton;
+    @FXML private Button settingsNavButton;
     @FXML private TableView<Student> studentTable;
 
     @FXML private TableColumn<Student, String> fullNameCol;
@@ -239,6 +242,7 @@ public class MainController {
         reportsButton.setOnAction(e -> handleNavigateToReports());
         importButton.setOnAction(e -> handleNavigateToImportExport());
         exportButton.setOnAction(e -> handleNavigateToImportExport());
+        settingsNavButton.setOnAction(e -> handleNavigateToSettings());
     }
 
     @FXML
@@ -421,6 +425,27 @@ public class MainController {
         }
     }
 
+    // In MainController.java:
+    @FXML
+    public void handleNavigateToSettings() {
+        try {
+            System.out.println("Navigating to Settings screen...");
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/settings.fxml"));
+            Parent root = loader.load();
 
+            SettingsController controller = loader.getController();
+            controller.setMainStage(mainStage);
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+            mainStage.setScene(scene);
+
+        } catch (IOException e) {
+            System.err.println("Error loading settings.fxml: " + e.getMessage());
+            e.printStackTrace();
+            showError("Navigation Error", "Could not open Settings screen");
+        }
+    }
 }
