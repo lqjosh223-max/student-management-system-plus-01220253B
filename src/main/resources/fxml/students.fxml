@@ -52,7 +52,7 @@
                 <Pane HBox.hgrow="ALWAYS"/>
                 <Button text="Add" fx:id="addStudentButton" styleClass="btn-primary"/>
                 <Button text="Edit" fx:id="editStudentButton" styleClass="btn-secondary"/>
-                <Button text="🗑Delete" fx:id="deleteStudentButton" styleClass="btn-danger"/>
+                <Button text="Delete" fx:id="deleteStudentButton" styleClass="btn-danger"/>
                 <Button text="Refresh" fx:id="refreshButton" styleClass="btn-secondary"/>
             </HBox>
 

@@ -5,6 +5,9 @@ import com.sms.repository.SQLiteStudentRepository;
 import com.sms.service.StudentService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -81,7 +84,7 @@ public class ImportExportController {
         studentsNavButton.setOnAction(e -> navigateToStudents());
         reportsNavButton.setOnAction(e -> navigateToReports());
         importExportNavButton.setOnAction(e -> {}); // Already on this screen
-        settingsNavButton.setOnAction(e -> showAlert("Info", "Settings screen coming soon"));
+        settingsNavButton.setOnAction(e -> navigateToSettings());
 
         // Import buttons
         chooseFileButton.setOnAction(e -> handleChooseFile());
@@ -361,55 +364,169 @@ public class ImportExportController {
         }
     }
 
-    // Navigation methods
+// navigation  methods
+
     private void navigateToDashboard() {
-        navigateToScreen("/fxml/main.fxml", "Dashboard");
+        try {
+            // Check if FXML exists
+            java.net.URL fxmlUrl = getClass().getResource("/fxml/dashboard.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("ERROR: dashboard.fxml not found");
+                showError("Navigation Error", "Dashboard screen not found");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent root = loader.load();
+
+            DashboardController controller = loader.getController();
+            if (controller != null) {
+                controller.setMainStage(mainStage);
+            }
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+            mainStage.setScene(scene);
+
+        } catch (IOException e) {
+            System.err.println("Error loading dashboard.fxml: " + e.getMessage());
+            e.printStackTrace();
+            showError("Navigation Error", "Failed to open Dashboard screen");
+        }
     }
 
     private void navigateToStudents() {
-        navigateToScreen("/fxml/main.fxml", "Students");
+        try {
+            // Check if FXML exists
+            java.net.URL fxmlUrl = getClass().getResource("/fxml/students.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("ERROR: students.fxml not found");
+                showError("Navigation Error", "Students screen not found");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent root = loader.load();
+
+            StudentsController controller = loader.getController();
+            if (controller != null) {
+                controller.setMainStage(mainStage);
+            }
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+            mainStage.setScene(scene);
+
+        } catch (IOException e) {
+            System.err.println("Error loading students.fxml: " + e.getMessage());
+            e.printStackTrace();
+            showError("Navigation Error", "Failed to open Students screen");
+        }
+    }
+
+    private void navigateToSettings() {
+        try {
+            // Check if FXML exists
+            java.net.URL fxmlUrl = getClass().getResource("/fxml/settings.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("ERROR: settings.fxml not found");
+                showError("Navigation Error", "Settings screen not found");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent root = loader.load();
+
+            SettingsController controller = loader.getController();
+            if (controller != null) {
+                controller.setMainStage(mainStage);
+            }
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+            mainStage.setScene(scene);
+
+        } catch (IOException e) {
+            System.err.println("Error loading settings.fxml: " + e.getMessage());
+            e.printStackTrace();
+            showError("Navigation Error", "Failed to open Settings screen");
+        }
     }
 
     private void navigateToReports() {
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/fxml/reports.fxml"));
-            javafx.scene.Parent root = loader.load();
+            java.net.URL fxmlUrl = getClass().getResource("/fxml/reports.fxml");
+            if (fxmlUrl == null) {
+                System.err.println("ERROR: reports.fxml not found");
+                showError("Navigation Error", "Reports screen not found");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent root = loader.load();
 
             ReportsController controller = loader.getController();
-            controller.setMainStage(mainStage);
+            if (controller != null) {
+                controller.setMainStage(mainStage);
+            }
 
-            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
             mainStage.setScene(scene);
 
-        } catch (Exception e) {
-            System.err.println("Error navigating to reports screen: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error loading reports.fxml: " + e.getMessage());
             e.printStackTrace();
-            showError("Navigation Error", "Failed to open Reports screen: " + e.getMessage());
+            showError("Navigation Error", "Failed to open Reports screen");
         }
     }
 
-    private void navigateToScreen(String fxmlPath, String screenName) {
+    // Generic navigation helper (optional - use specific methods above for clarity)
+    private void navigateToScreen(String fxmlPath, String screenName, Class<?> expectedController) {
         try {
-            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource(fxmlPath));
-            javafx.scene.Parent root = loader.load();
+            java.net.URL fxmlUrl = getClass().getResource(fxmlPath);
+            if (fxmlUrl == null) {
+                System.err.println("ERROR: " + fxmlPath + " not found");
+                showError("Navigation Error", screenName + " screen not found");
+                return;
+            }
 
-            MainController controller = loader.getController();
-            controller.setMainStage(mainStage);
+            FXMLLoader loader = new FXMLLoader(fxmlUrl);
+            Parent root = loader.load();
 
-            javafx.scene.Scene scene = new javafx.scene.Scene(root);
+            Object controller = loader.getController();
+            if (controller != null) {
+                // Set main stage for any controller that supports it
+                if (controller instanceof MainController) {
+                    ((MainController) controller).setMainStage(mainStage);
+                } else if (controller instanceof DashboardController) {
+                    ((DashboardController) controller).setMainStage(mainStage);
+                } else if (controller instanceof StudentsController) {
+                    ((StudentsController) controller).setMainStage(mainStage);
+                } else if (controller instanceof ReportsController) {
+                    ((ReportsController) controller).setMainStage(mainStage);
+                } else if (controller instanceof ImportExportController) {
+                    ((ImportExportController) controller).setMainStage(mainStage);
+                } else if (controller instanceof SettingsController) {
+                    ((SettingsController) controller).setMainStage(mainStage);
+                }
+            }
+
+            Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
             mainStage.setScene(scene);
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Error navigating to " + screenName + ": " + e.getMessage());
             e.printStackTrace();
-            showError("Navigation Error", "Failed to open " + screenName + " screen: " + e.getMessage());
+            showError("Navigation Error", "Failed to open " + screenName + " screen");
         }
     }
-
     // Logging
     private void logImportOperation(int successCount, int errorCount) {
         try {
