@@ -10,11 +10,12 @@ import java.io.IOException;
 public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+        // Load Dashboard as the landing screen
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
         Scene scene = new Scene(loader.load());
 
         // Get controller and set main stage
-        MainController controller = loader.getController();
+        DashboardController controller = loader.getController();
         controller.setMainStage(stage);
 
         // Load CSS

@@ -2,13 +2,12 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.sms.ui.MainController"
+            fx:controller="com.sms.ui.StudentsController"
             prefWidth="1200" prefHeight="800">
 
     <!-- TOP HEADER -->
@@ -17,22 +16,22 @@
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-            <Label text="Student Management System Plus" styleClass="logo"/>
+            <Label text="Students" styleClass="logo"/>
             <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Back to Dashboard" fx:id="backButton" styleClass="btn-secondary"/>
         </HBox>
     </top>
 
-    <!-- LEFT NAVIGATION SIDEBAR -->
+    <!-- LEFT NAVIGATION -->
     <left>
         <VBox spacing="10" styleClass="sidebar">
             <padding>
                 <Insets top="20" right="15" bottom="20" left="15"/>
             </padding>
-            <Button text="Dashboard" fx:id="dashboardButton" styleClass="nav-btn"/>
-            <Button text="Students" fx:id="studentsButton" styleClass="nav-btn active"/>
-            <Button text="Reports" fx:id="reportsButton" styleClass="nav-btn"/>
-            <Button text="Import" fx:id="importButton" styleClass="nav-btn"/>
-            <Button text="Export" fx:id="exportButton" styleClass="nav-btn"/>
+            <Button text="Dashboard" fx:id="dashboardNavButton" styleClass="nav-btn"/>
+            <Button text="Students" fx:id="studentsNavButton" styleClass="nav-btn active"/>
+            <Button text="Reports" fx:id="reportsNavButton" styleClass="nav-btn"/>
+            <Button text="Import/Export" fx:id="importExportNavButton" styleClass="nav-btn"/>
             <Button text="Settings" fx:id="settingsNavButton" styleClass="nav-btn"/>
         </VBox>
     </left>
@@ -44,43 +43,20 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <!-- DASHBOARD STATS CARDS -->
-            <HBox spacing="20">
-                <VBox spacing="10" styleClass="card">
-                    <Label text="Total Students" styleClass="stat-label"/>
-                    <Label text="0" styleClass="stat-value" fx:id="totalStudentsLabel"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="card">
-                    <Label text="Active Students" styleClass="stat-label"/>
-                    <Label text="0" styleClass="stat-value" fx:id="activeStudentsLabel"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="card">
-                    <Label text="Inactive Students" styleClass="stat-label"/>
-                    <Label text="0" styleClass="stat-value" fx:id="inactiveStudentsLabel"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="card">
-                    <Label text="Average GPA" styleClass="stat-label"/>
-                    <Label text="0.00" styleClass="stat-value" fx:id="averageGpaLabel"/>
-                </VBox>
-            </HBox>
-
-            <!-- SEARCH, FILTERS, AND CRUD BUTTONS -->
+            <!-- Search and Filters -->
             <HBox spacing="15" alignment="CENTER_LEFT">
-                <TextField promptText="Search student by ID or Name" fx:id="searchField" styleClass="search-field"/>
+                <TextField promptText="Search by ID or Name" fx:id="searchField" styleClass="search-field"/>
                 <ComboBox promptText="Programme" fx:id="programmeFilter" styleClass="filter-combo"/>
                 <ComboBox promptText="Level" fx:id="levelFilter" styleClass="filter-combo"/>
                 <ComboBox promptText="Status" fx:id="statusFilter" styleClass="filter-combo"/>
                 <Pane HBox.hgrow="ALWAYS"/>
                 <Button text="Add" fx:id="addStudentButton" styleClass="btn-primary"/>
                 <Button text="Edit" fx:id="editStudentButton" styleClass="btn-secondary"/>
-                <Button text="Delete" fx:id="deleteStudentButton" styleClass="btn-danger"/>
+                <Button text="🗑Delete" fx:id="deleteStudentButton" styleClass="btn-danger"/>
                 <Button text="Refresh" fx:id="refreshButton" styleClass="btn-secondary"/>
             </HBox>
 
-            <!-- STUDENT TABLE -->
+            <!-- Student Table -->
             <TableView fx:id="studentTable" styleClass="student-table" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn text="Full Name" prefWidth="180" fx:id="fullNameCol">

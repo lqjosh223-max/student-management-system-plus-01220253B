@@ -22,7 +22,7 @@
             <Button text="Back to Students" fx:id="backButton" styleClass="btn-secondary"/>
         </HBox>
     </top>
-
+    <!-- LEFT NAVIGATION -->
     <left>
         <VBox spacing="10" styleClass="sidebar">
             <padding>
@@ -31,8 +31,7 @@
             <Button text="Dashboard" fx:id="dashboardNavButton" styleClass="nav-btn"/>
             <Button text="Students" fx:id="studentsNavButton" styleClass="nav-btn"/>
             <Button text="Reports" fx:id="reportsNavButton" styleClass="nav-btn active"/>
-            <Button text="Import" fx:id="importNavButton" styleClass="nav-btn"/>
-            <Button text="Export" fx:id="exportNavButton" styleClass="nav-btn"/>
+            <Button text="Import/Export" fx:id="importExportNavButton" styleClass="nav-btn"/>
             <Button text="Settings" fx:id="settingsNavButton" styleClass="nav-btn"/>
         </VBox>
     </left>

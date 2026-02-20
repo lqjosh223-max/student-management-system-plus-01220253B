@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.sms.ui.DashboardController"
+            prefWidth="1200" prefHeight="800">
+
+    <!-- TOP HEADER -->
+    <top>
+        <HBox styleClass="header" spacing="20">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Student Management System Plus" styleClass="logo"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Label fx:id="currentUserLabel" text="Admin" styleClass="stat-label"/>
+        </HBox>
+    </top>
+
+    <!-- LEFT NAVIGATION -->
+    <left>
+        <VBox spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+            <Button text="Dashboard" fx:id="dashboardNavButton" styleClass="nav-btn active"/>
+            <Button text="Students" fx:id="studentsNavButton" styleClass="nav-btn"/>
+            <Button text="Reports" fx:id="reportsNavButton" styleClass="nav-btn"/>
+            <Button text="Import/Export" fx:id="importExportNavButton" styleClass="nav-btn"/>
+            <Button text="Settings" fx:id="settingsNavButton" styleClass="nav-btn"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER CONTENT -->
+    <center>
+        <VBox spacing="30" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
+            
+            <!-- Welcome Section -->
+            <VBox spacing="10" alignment="CENTER">
+                <Label text="Welcome to Student Management System Plus" styleClass="dialog-title"/>
+                <Label text="Select an option below to get started" styleClass="stat-label"/>
+            </VBox>
+            
+            <!-- Dashboard Stats Cards -->
+            <HBox spacing="30" alignment="CENTER">
+                <VBox spacing="10" styleClass="card" prefWidth="200">
+                    <alignment>CENTER</alignment>
+                    <Label text="Total Students" styleClass="stat-label"/>
+                    <Label fx:id="totalStudentsLabel" text="0" styleClass="stat-value"/>
+                </VBox>
+
+                <VBox spacing="10" styleClass="card" prefWidth="200">
+                    <alignment>CENTER</alignment>
+                    <Label text="Active Students" styleClass="stat-label"/>
+                    <Label fx:id="activeStudentsLabel" text="0" styleClass="stat-value"/>
+                </VBox>
+
+                <VBox spacing="10" styleClass="card" prefWidth="200">
+                    <alignment>CENTER</alignment>
+                    <Label text="Inactive Students" styleClass="stat-label"/>
+                    <Label fx:id="inactiveStudentsLabel" text="0" styleClass="stat-value"/>
+                </VBox>
+
+                <VBox spacing="10" styleClass="card" prefWidth="200">
+                    <alignment>CENTER</alignment>
+                    <Label text="Average GPA" styleClass="stat-label"/>
+                    <Label fx:id="averageGpaLabel" text="0.00" styleClass="stat-value"/>
+                </VBox>
+            </HBox>
+            
+            <!-- Quick Action Buttons -->
+            <VBox spacing="20" alignment="CENTER">
+                <Label text="Quick Actions" styleClass="dialog-title"/>
+                
+                <FlowPane hgap="20" vgap="15" alignment="CENTER">
+                    <Button text="Manage Students" fx:id="quickStudentsButton" styleClass="btn-primary" prefWidth="180" prefHeight="50"/>
+                    <Button text="View Reports" fx:id="quickReportsButton" styleClass="btn-primary" prefWidth="180" prefHeight="50"/>
+                    <Button text="Import/Export" fx:id="quickImportExportButton" styleClass="btn-primary" prefWidth="180" prefHeight="50"/>
+                    <Button text="Settings" fx:id="quickSettingsButton" styleClass="btn-secondary" prefWidth="180" prefHeight="50"/>
+                </FlowPane>
+            </VBox>
+            
+            <!-- Recent Activity Section -->
+            <VBox spacing="15" styleClass="card" prefWidth="800">
+                <Label text="Recent Activity" styleClass="dialog-title"/>
+                <ListView fx:id="activityListView" prefHeight="150"/>
+            </VBox>
+            
+        </VBox>
+    </center>
+
+</BorderPane>
