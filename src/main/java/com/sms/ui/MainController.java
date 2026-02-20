@@ -34,6 +34,8 @@ public class MainController {
     @FXML private Button deleteStudentButton;
     @FXML private Button refreshButton;
     @FXML private Button reportsButton;
+    @FXML private Button importButton;
+    @FXML private Button exportButton;
     @FXML private TableView<Student> studentTable;
 
     @FXML private TableColumn<Student, String> fullNameCol;
@@ -235,6 +237,8 @@ public class MainController {
         deleteStudentButton.setOnAction(e -> handleDeleteStudent());
         refreshButton.setOnAction(e -> loadStudentData());
         reportsButton.setOnAction(e -> handleNavigateToReports());
+        importButton.setOnAction(e -> handleNavigateToImportExport());
+        exportButton.setOnAction(e -> handleNavigateToImportExport());
     }
 
     @FXML
@@ -396,4 +400,27 @@ public class MainController {
             showError("Navigation Error", "Failed to open reports screen: " + e.getMessage());
         }
     }
+    @FXML
+    private void handleNavigateToImportExport() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/import_export.fxml"));
+            Parent root = loader.load();
+
+            ImportExportController controller = loader.getController();
+            controller.setMainStage(mainStage);
+
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+
+            mainStage.setScene(scene);
+
+        } catch (IOException e) {
+            System.err.println("Error navigating to Import/Export screen: " + e.getMessage());
+            e.printStackTrace();
+            showError("Navigation Error", "Failed to open Import/Export screen: " + e.getMessage());
+        }
+    }
+
+
+
 }

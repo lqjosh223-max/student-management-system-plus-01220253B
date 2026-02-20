@@ -3,10 +3,11 @@ package com.sms.service;
 import com.sms.domain.Student;
 import com.sms.repository.StudentRepository;
 
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StudentService {
@@ -196,4 +197,100 @@ public class StudentService {
     public Student findStudentById(String studentId) {
         return repository.findStudentById(studentId);
     }
+
+    // Import students from CSV with validation
+    public ImportResult importStudentsFromCsv(String filePath) {
+        int successCount = 0;
+        int errorCount = 0;
+        List<String> errors = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String headerLine = reader.readLine(); // Skip header
+            if (headerLine == null) {
+                return new ImportResult(0, 0, List.of("Empty CSV file"));
+            }
+
+            String line;
+            int lineNumber = 1; // Start after header
+
+            while ((line = reader.readLine()) != null) {
+                lineNumber++;
+                try {
+                    String[] fields = line.split(",");
+                    if (fields.length < 9) {
+                        errors.add("Line " + lineNumber + ": Insufficient fields");
+                        errorCount++;
+                        continue;
+                    }
+
+                    // Parse fields
+                    String studentId = fields[0].trim();
+                    String fullName = fields[1].trim();
+                    String programme = fields[2].trim();
+                    int level = Integer.parseInt(fields[3].trim());
+                    double gpa = Double.parseDouble(fields[4].trim());
+                    String email = fields[5].trim();
+                    String phone = fields[6].trim();
+                    String dateAdded = fields[7].trim();
+                    String status = fields[8].trim();
+
+                    // Check for duplicate ID
+                    if (repository.findStudentById(studentId) != null) {
+                        errors.add("Line " + lineNumber + ": Duplicate Student ID - " + studentId);
+                        errorCount++;
+                        continue;
+                    }
+
+                    // Create student object
+                    Student student = new Student(
+                            studentId,
+                            fullName,
+                            programme,
+                            level,
+                            gpa,
+                            email,
+                            phone,
+                            LocalDateTime.parse(dateAdded),
+                            status
+                    );
+
+                    // Validate using service layer
+                    addStudent(student); // This will throw exception if validation fails
+                    successCount++;
+
+                } catch (IllegalArgumentException e) {
+                    errors.add("Line " + lineNumber + ": " + e.getMessage());
+                    errorCount++;
+                } catch (Exception e) {
+                    errors.add("Line " + lineNumber + ": " + e.getMessage());
+                    errorCount++;
+                }
+            }
+
+        } catch (IOException e) {
+            return new ImportResult(0, 0, List.of("Failed to read CSV file: " + e.getMessage()));
+        }
+
+        return new ImportResult(successCount, errorCount, errors);
+    }
+
+    // Helper class for import results
+    public static class ImportResult {
+        private final int successCount;
+        private final int errorCount;
+        private final List<String> errors;
+
+        public ImportResult(int successCount, int errorCount, List<String> errors) {
+            this.successCount = successCount;
+            this.errorCount = errorCount;
+            this.errors = errors;
+        }
+
+        public int getSuccessCount() { return successCount; }
+        public int getErrorCount() { return errorCount; }
+        public List<String> getErrors() { return errors; }
+    }
+
+
+
 }

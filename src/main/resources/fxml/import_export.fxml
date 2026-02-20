@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.sms.ui.ImportExportController"
+            prefWidth="1200" prefHeight="800">
+
+    <!-- TOP HEADER -->
+    <top>
+        <HBox styleClass="header" spacing="20">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Import &amp; Export" styleClass="logo"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Back to Dashboard" fx:id="backButton" styleClass="btn-secondary"/>
+        </HBox>
+    </top>
+
+    <!-- LEFT NAVIGATION -->
+    <left>
+        <VBox spacing="10" styleClass="sidebar">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+            <Button text="Dashboard" fx:id="dashboardNavButton" styleClass="nav-btn"/>
+            <Button text="Students" fx:id="studentsNavButton" styleClass="nav-btn"/>
+            <Button text="Reports" fx:id="reportsNavButton" styleClass="nav-btn"/>
+            <Button text="Import/Export" fx:id="importExportNavButton" styleClass="nav-btn active"/>
+            <Button text="Settings" fx:id="settingsNavButton" styleClass="nav-btn"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER CONTENT -->
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <!-- TAB 1: Import -->
+            <Tab text="Import CSV">
+                <VBox spacing="20">
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+                    <Label text="Import Students from CSV" styleClass="dialog-title"/>
+
+                    <VBox spacing="10" styleClass="card">
+                        <Label text="Instructions:" styleClass="stat-label"/>
+                        <TextArea text="1. CSV must have 9 columns: Student ID, Full Name, Programme, Level, GPA, Email, Phone, Date Added, Status&#10;2. First row must be header&#10;3. Invalid rows will be skipped and logged&#10;4. Duplicate IDs will be rejected"
+                                  wrapText="true" prefHeight="100" editable="false"/>
+                    </VBox>
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Button text="Choose CSV File" fx:id="chooseFileButton" styleClass="btn-primary"/>
+                        <Label fx:id="selectedFileName" text="No file selected" styleClass="stat-label"/>
+                    </HBox>
+
+                    <Button text="Start Import" fx:id="startImportButton" styleClass="btn-primary" disable="true"/>
+
+                    <VBox spacing="10" styleClass="card">
+                        <Label text="Import Summary" styleClass="stat-label"/>
+                        <HBox spacing="30">
+                            <VBox>
+                                <Label text="Successfully Imported:" styleClass="stat-label"/>
+                                <Label fx:id="successCountLabel" text="0" styleClass="stat-value"/>
+                            </VBox>
+                            <VBox>
+                                <Label text="Errors:" styleClass="stat-label"/>
+                                <Label fx:id="errorCountLabel" text="0" styleClass="stat-value"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <Button text="View Error Report" fx:id="viewErrorReportButton" styleClass="btn-secondary" disable="true"/>
+                </VBox>
+            </Tab>
+
+            <!-- TAB 2: Export -->
+            <Tab text="Export">
+                <VBox spacing="20">
+                    <padding>
+                        <Insets top="30" right="30" bottom="30" left="30"/>
+                    </padding>
+                    <Label text="Export Student Data" styleClass="dialog-title"/>
+
+                    <VBox spacing="15" styleClass="card">
+                        <Label text="Export Options:" styleClass="stat-label"/>
+
+                        <VBox spacing="10">
+                            <RadioButton text="All Students" fx:id="exportAllStudentsRadio" selected="true"/>
+                            <RadioButton text="Active Students Only" fx:id="exportActiveOnlyRadio"/>
+                            <RadioButton text="Inactive Students Only" fx:id="exportInactiveOnlyRadio"/>
+                        </VBox>
+
+                        <Button text="Export to CSV" fx:id="exportAllButton" styleClass="btn-primary"/>
+                    </VBox>
+
+                    <VBox spacing="15" styleClass="card">
+                        <Label text="Quick Exports:" styleClass="stat-label"/>
+                        <HBox spacing="10">
+                            <Button text="Export Top Performers" fx:id="exportTopPerformersQuickButton" styleClass="btn-secondary"/>
+                            <Button text="Export At Risk Students" fx:id="exportAtRiskQuickButton" styleClass="btn-secondary"/>
+                            <Button text="Export Programme Summary" fx:id="exportSummaryQuickButton" styleClass="btn-secondary"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+
+</BorderPane>

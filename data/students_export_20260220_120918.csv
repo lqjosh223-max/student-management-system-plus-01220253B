@@ -1,0 +1,16 @@
+Student ID,Full Name,Programme,Level,GPA,Email,Phone,Date Added,Status
+CS2024004,Abena Osei,Computer Science,100,3.9,abena.osei@email.com,0244345678,2024-01-18T11:45,Active
+CS2024015,Daniel Appiah,Business Administration,500,3.3,daniel.appiah@email.com,0244123890,2024-01-29T13:00,Active
+CS2024009,David Ofori,Computer Science,600,2.9,david.ofori@email.com,0244456789,2024-01-23T15:20,Active
+CS2024014,Elizabeth Owusu,Computer Science,400,2.5,elizabeth.owusu@email.com,0244567234,2024-01-28T08:15,Inactive
+CS2024007,Emmanuel Asare,Mathematics,400,3.1,emmanuel.asare@email.com,0244234567,2024-01-21T13:15,Active
+CS2024008,Grace Amo,Physics,500,3.7,grace.amo@email.com,0244890123,2024-01-22T10:45,Active
+CS2024002,Jane Smith,Business Administration,300,3.8,jane.smith@email.com,0244123456,2024-01-16T14:20,Active
+CS2024001,John Doe,Computer Science,200,3.5,john.doe@email.com,0244567890,2024-01-15T10:30,Active
+CS2024003,Kwame Mensah,Engineering,400,3.2,kwame.mensah@email.com,0244789012,2024-01-17T09:15,Active
+CS2024012,Mary Addo,Mathematics,200,1.5,mary.addo@email.com,0244345012,2024-01-26T11:30,Active
+CS2024005,Michael Brown,Business Administration,200,2.8,michael.brown@email.com,0244901234,2024-01-19T16:30,Active
+CS2024011,Patrick Nkrumah,Engineering,100,1.8,patrick.nkrumah@email.com,0244678901,2024-01-25T14:00,Active
+CS2024010,Ruth Boateng,Business Administration,700,3.4,ruth.boateng@email.com,0244012345,2024-01-24T09:30,Active
+CS2024006,Sarah Johnson,Engineering,300,3.6,sarah.johnson@email.com,0244567123,2024-01-20T08:00,Active
+CS2024013,Stephen Darko,Physics,300,3.0,stephen.darko@email.com,0244901678,2024-01-27T16:45,Active
