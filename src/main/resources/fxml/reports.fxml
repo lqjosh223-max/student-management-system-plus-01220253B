@@ -19,7 +19,7 @@
             </padding>
             <Label text="Reports" styleClass="logo"/>
             <Pane HBox.hgrow="ALWAYS"/>
-            <Button text="Back to Students" fx:id="backButton" styleClass="btn-secondary"/>
+            <Button text="Back to Dashboard" fx:id="backButton" styleClass="btn-secondary"/>
         </HBox>
     </top>
     <!-- LEFT NAVIGATION -->
