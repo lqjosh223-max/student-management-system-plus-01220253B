@@ -188,4 +188,15 @@ public class SQLiteStudentRepository implements StudentRepository {
             throw new RuntimeException("Failed to delete student", e);
         }
     }
+    // Add this method for test cleanup (hard delete)
+    public void hardDeleteStudent(String studentId) {
+        String sql = "DELETE FROM students WHERE student_id = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, studentId);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            // Ignore errors during test cleanup
+        }
+    }
 }

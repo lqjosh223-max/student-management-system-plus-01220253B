@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.sms.ui.DashboardController"
-            prefWidth="1200" prefHeight="800">
+<BorderPane prefHeight="800" prefWidth="1200" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sms.ui.DashboardController">
 
     <!-- TOP HEADER -->
     <top>
-        <HBox styleClass="header" spacing="20">
+        <HBox spacing="20" styleClass="header">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <Label text="Student Management System Plus" styleClass="logo"/>
-            <Pane HBox.hgrow="ALWAYS"/>
-            <Label fx:id="currentUserLabel" text="Admin" styleClass="stat-label"/>
+            <Label styleClass="logo" text="Student Management System " />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Label fx:id="currentUserLabel" styleClass="stat-label" text="Admin" />
         </HBox>
     </top>
 
@@ -26,72 +28,72 @@
     <left>
         <VBox spacing="10" styleClass="sidebar">
             <padding>
-                <Insets top="20" right="15" bottom="20" left="15"/>
+                <Insets bottom="20" left="15" right="15" top="20" />
             </padding>
-            <Button text="Dashboard" fx:id="dashboardNavButton" styleClass="nav-btn active"/>
-            <Button text="Students" fx:id="studentsNavButton" styleClass="nav-btn"/>
-            <Button text="Reports" fx:id="reportsNavButton" styleClass="nav-btn"/>
-            <Button text="Import/Export" fx:id="importExportNavButton" styleClass="nav-btn"/>
-            <Button text="Settings" fx:id="settingsNavButton" styleClass="nav-btn"/>
+            <Button fx:id="dashboardNavButton" styleClass="nav-btn active" text="Dashboard" />
+            <Button fx:id="studentsNavButton" styleClass="nav-btn" text="Students" />
+            <Button fx:id="reportsNavButton" styleClass="nav-btn" text="Reports" />
+            <Button fx:id="importExportNavButton" styleClass="nav-btn" text="Import/Export" />
+            <Button fx:id="settingsNavButton" styleClass="nav-btn" text="Settings" />
         </VBox>
     </left>
 
     <!-- CENTER CONTENT -->
     <center>
-        <VBox spacing="30" alignment="TOP_CENTER">
+        <VBox alignment="TOP_CENTER" spacing="30">
             <padding>
-                <Insets top="40" right="40" bottom="40" left="40"/>
+                <Insets bottom="40" left="40" right="40" top="40" />
             </padding>
             
             <!-- Welcome Section -->
-            <VBox spacing="10" alignment="CENTER">
-                <Label text="Welcome to Student Management System " styleClass="dialog-title"/>
-                <Label text="Select an option below to get started" styleClass="stat-label"/>
+            <VBox alignment="CENTER" spacing="10">
+                <Label styleClass="dialog-title" text="Welcome to Student Management System " />
+                <Label styleClass="stat-label" text="Select an option below to get started" />
             </VBox>
             
             <!-- Dashboard Stats Cards -->
-            <HBox spacing="30" alignment="CENTER">
-                <VBox spacing="10" styleClass="card" prefWidth="200">
+            <HBox alignment="CENTER" spacing="30">
+                <VBox prefWidth="200" spacing="10" styleClass="card">
                     <alignment>CENTER</alignment>
-                    <Label text="Total Students" styleClass="stat-label"/>
-                    <Label fx:id="totalStudentsLabel" text="0" styleClass="stat-value"/>
+                    <Label styleClass="stat-label" text="Total Students" />
+                    <Label fx:id="totalStudentsLabel" styleClass="stat-value" text="0" />
                 </VBox>
 
-                <VBox spacing="10" styleClass="card" prefWidth="200">
+                <VBox prefWidth="200" spacing="10" styleClass="card">
                     <alignment>CENTER</alignment>
-                    <Label text="Active Students" styleClass="stat-label"/>
-                    <Label fx:id="activeStudentsLabel" text="0" styleClass="stat-value"/>
+                    <Label styleClass="stat-label" text="Active Students" />
+                    <Label fx:id="activeStudentsLabel" styleClass="stat-value" text="0" />
                 </VBox>
 
-                <VBox spacing="10" styleClass="card" prefWidth="200">
+                <VBox prefWidth="200" spacing="10" styleClass="card">
                     <alignment>CENTER</alignment>
-                    <Label text="Inactive Students" styleClass="stat-label"/>
-                    <Label fx:id="inactiveStudentsLabel" text="0" styleClass="stat-value"/>
+                    <Label styleClass="stat-label" text="Inactive Students" />
+                    <Label fx:id="inactiveStudentsLabel" styleClass="stat-value" text="0" />
                 </VBox>
 
-                <VBox spacing="10" styleClass="card" prefWidth="200">
+                <VBox prefWidth="200" spacing="10" styleClass="card">
                     <alignment>CENTER</alignment>
-                    <Label text="Average GPA" styleClass="stat-label"/>
-                    <Label fx:id="averageGpaLabel" text="0.00" styleClass="stat-value"/>
+                    <Label styleClass="stat-label" text="Average GPA" />
+                    <Label fx:id="averageGpaLabel" styleClass="stat-value" text="0.00" />
                 </VBox>
             </HBox>
             
             <!-- Quick Action Buttons -->
-            <VBox spacing="20" alignment="CENTER">
-                <Label text="Quick Actions" styleClass="dialog-title"/>
+            <VBox alignment="CENTER" spacing="20">
+                <Label styleClass="dialog-title" text="Quick Actions" />
                 
-                <FlowPane hgap="20" vgap="15" alignment="CENTER">
-                    <Button text="Manage Students" fx:id="quickStudentsButton" styleClass="btn-primary" prefWidth="180" prefHeight="50"/>
-                    <Button text="View Reports" fx:id="quickReportsButton" styleClass="btn-primary" prefWidth="180" prefHeight="50"/>
-                    <Button text="Import/Export" fx:id="quickImportExportButton" styleClass="btn-primary" prefWidth="180" prefHeight="50"/>
-                    <Button text="Settings" fx:id="quickSettingsButton" styleClass="btn-secondary" prefWidth="180" prefHeight="50"/>
+                <FlowPane alignment="CENTER" hgap="20" vgap="15">
+                    <Button fx:id="quickStudentsButton" prefHeight="50" prefWidth="180" styleClass="btn-primary" text="Manage Students" />
+                    <Button fx:id="quickReportsButton" prefHeight="50" prefWidth="180" styleClass="btn-primary" text="View Reports" />
+                    <Button fx:id="quickImportExportButton" prefHeight="50" prefWidth="180" styleClass="btn-primary" text="Import/Export" />
+                    <Button fx:id="quickSettingsButton" prefHeight="50" prefWidth="180" styleClass="btn-secondary" text="Settings" />
                 </FlowPane>
             </VBox>
             
             <!-- Recent Activity Section -->
-            <VBox spacing="15" styleClass="card" prefWidth="800">
-                <Label text="Recent Activity" styleClass="dialog-title"/>
-                <ListView fx:id="activityListView" prefHeight="150"/>
+            <VBox prefWidth="800" spacing="15" styleClass="card">
+                <Label styleClass="dialog-title" text="Recent Activity" />
+                <ListView fx:id="activityListView" prefHeight="150" />
             </VBox>
             
         </VBox>
