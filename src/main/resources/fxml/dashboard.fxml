@@ -45,7 +45,7 @@
             
             <!-- Welcome Section -->
             <VBox spacing="10" alignment="CENTER">
-                <Label text="Welcome to Student Management System Plus" styleClass="dialog-title"/>
+                <Label text="Welcome to Student Management System " styleClass="dialog-title"/>
                 <Label text="Select an option below to get started" styleClass="stat-label"/>
             </VBox>
             

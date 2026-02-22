@@ -21,7 +21,7 @@ public class MainApp extends Application {
         // Load CSS
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
-        stage.setTitle("Student Management System Plus");
+        stage.setTitle("Student Management System ");
         stage.setScene(scene);
         stage.show();
     }
