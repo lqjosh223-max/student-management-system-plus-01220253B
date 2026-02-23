@@ -1,0 +1,21 @@
+# Student Management System Plus - VM Options for Windows
+# Required to run JavaFX application offline
+
+JDK Version Used: 25
+
+# JavaFX Module Path (update to match your installation)
+--module-path "C:\javafx\javafx-sdk-21\lib"
+
+# Required JavaFX Modules
+--add-modules javafx.controls,javafx.fxml
+
+# Optional: Enable native access for JDK 25+
+--enable-native-access=ALL-UNNAMED
+
+# How to Run in IntelliJ:
+# 1. Run → Edit Configurations → Add VM options
+# 2. Copy lines above (except comments) into VM options field
+# 3. Run MainApp.java
+
+# Command Line Alternative:
+# java --module-path "C:\javafx\javafx-sdk-21\lib" --add-modules javafx.controls,javafx.fxml -jar app/student-management-system-plus-1.0.0.jar

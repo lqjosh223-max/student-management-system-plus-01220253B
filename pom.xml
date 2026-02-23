@@ -53,6 +53,24 @@
   </dependencies>
 
   <build>
+    <!-- Ensure resources are properly included -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.fxml</include>
+          <include>**/*.css</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+
     <plugins>
       <!-- Maven Compiler Plugin -->
       <plugin>
@@ -64,6 +82,47 @@
         </configuration>
       </plugin>
 
+      <!-- Maven JAR Plugin - for regular JAR -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.sms.ui.MainApp</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <!-- Maven Assembly Plugin - CREATE FAT JAR WITH DEPENDENCIES -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.6.0</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>com.sms.ui.MainApp</mainClass>
+            </manifest>
+          </archive>
+          <appendAssemblyId>false</appendAssemblyId>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- Maven Surefire Plugin for Tests -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -73,6 +132,7 @@
           <includes>
             <include>**/*Test.java</include>
           </includes>
+          <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
         </configuration>
       </plugin>
 
