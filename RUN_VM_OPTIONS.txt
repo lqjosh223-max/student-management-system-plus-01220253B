@@ -3,18 +3,16 @@
 
 JDK Version Used: 25
 
-# JavaFX Module Path (update to match your installation)
---module-path "C:\javafx\javafx-sdk-21\lib"
+--module-path
+#File path of your Java Fx library "C:\Users\Administrator\Documents\openjfx-25.0.1_windows-x64_bin-sdk\javafx-sdk-25.0.1\lib"
+--add-modules
+javafx.controls,javafx.fxml
+--enable-native-access=javafx.graphics
 
-# Required JavaFX Modules
---add-modules javafx.controls,javafx.fxml
-
-# Optional: Enable native access for JDK 25+
---enable-native-access=ALL-UNNAMED
 
 # How to Run in IntelliJ:
 # 1. Run → Edit Configurations → Add VM options
-# 2. Copy lines above (except comments) into VM options field
+# 2. Copy lines above (except comments #) into VM options field
 # 3. Run MainApp.java
 
 # Command Line Alternative:
